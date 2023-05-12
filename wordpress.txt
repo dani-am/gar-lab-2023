@@ -1,9 +1,0 @@
-sudo apt install apache2
-sudo apt install php libapache2-mod-php php-mysql php-curl php-gd php-xml php-mbstring php-xmlrpc php-zip php-soap php-intl -y
-cp wordpress.tar /var/www/html/
-cd /var/www/html/
-tar xvf wordpress.tar
-apt install mysql-server -y
-mysql -u root –p
-mysql> CREATE DATABASE wordpress;
-mysql> -u root -p nueva_bbdd < wordpress.sql
