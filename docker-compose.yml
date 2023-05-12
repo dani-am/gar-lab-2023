@@ -1,0 +1,21 @@
+version: '3'
+services:
+  foreman:
+    build: ./foreman
+    ports:
+      - "3000:3000"
+  chef:
+    build: ./chef
+  haproxy:
+    build: ./haproxy
+  wordpress:
+    build: ./wordpress
+    ports:
+      - "8080:80"
+  icubernetes:
+    build: ./ikubernetes
+  checkmk:
+    build: ./checkmk
+  iptables:
+    build: ./iptables
+
