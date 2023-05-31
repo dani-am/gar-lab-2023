@@ -5,3 +5,8 @@ sudo apt-get install /tmp/puppet7-release-focal.deb
 sudo wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
 echo "deb http://deb.theforeman.org/ focal nightly" | sudo tee /etc/apt/sources.list.d/foreman.list
 echo "deb http://deb.theforeman.org/ plugins nightly" | sudo tee -a /etc/apt/sources.list.d/foreman.list
+sudo apt-get update && sudo apt-get -y install foreman-installer
+
+Poner la ip publica del servidor en /etc/hosts, como IP hostname.example.com hostname
+
+sudo foreman-installer, como la opcion i puedes especificar los plugins a instalar
