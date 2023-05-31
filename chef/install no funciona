@@ -1,0 +1,18 @@
+---Probar CHEF---------
+
+apt-get update -y
+apt upgrade -y
+hostnamectl set-hostname chef.example.com
+apt install joe
+joe /etc/hosts -> Meter 185.254.205.30 chef.example.com
+apt-get install curl wget gnupg2 -y
+wget https://packages.chef.io/files/stable/chef-server/13.1.13/ubuntu/18.04/chef-server-core_13.1.13-1_amd64.deb
+dpkg -i chef-server-core_13.1.13-1_amd64.deb
+chef-server-ctl reconfigure
+mkdir ~/.chef_key
+chef-server-ctl user-create atlanticuser Atlantic User admin@example.com 'mypassword' --filename ~/.chef_key/atlantic.pem
+chef-server-ctl user-create atlanticuser serrano serrano@example.com 'serrano' --filename ~/.chef_key/atlantic.pem
+chef-server-ctl org-create atlantic "atlantic cloud" --association_user atlanticuser --filename ~/.chef_key/atlantic-org.pem
+ls ~/.chef_key/
+--Configurar WEB CHEF MANAGEMENT---
+https://www.atlantic.net/vps-hosting/how-to-install-chef-automation-server-on-ubuntu-20-04/
