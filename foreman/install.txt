@@ -1,0 +1,7 @@
+sudo apt-get -y install ca-certificates
+cd /tmp && wget https://apt.puppet.com/puppet7-release-focal.deb
+sudo apt-get install /tmp/puppet7-release-focal.deb
+
+sudo wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
+echo "deb http://deb.theforeman.org/ focal nightly" | sudo tee /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins nightly" | sudo tee -a /etc/apt/sources.list.d/foreman.list
