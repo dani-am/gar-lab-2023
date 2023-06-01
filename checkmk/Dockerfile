@@ -4,7 +4,7 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y wget
 
 # Descarga el paquete de instalación de Checkmk desde el sitio oficial
-RUN wget -O checkmk.deb "https://checkmk.com/support/2.0.0p6/check-mk-raw-2.0.0p6_0.bionic_amd64.deb"
+RUN wget -O checkmk.deb "https://checkmk.com/support/2.0.0p6/check-mk-raw-2.0.0p6_0.bionic_amd64.deb"#esta direccion no funciona pero no consigo una en la que vaya bien
 
 # Instala el paquete de Checkmk
 RUN dpkg -i checkmk.deb && rm checkmk.deb
