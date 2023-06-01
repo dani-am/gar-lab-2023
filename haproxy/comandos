@@ -1,0 +1,53 @@
+-Preguntar la IP de uno de los servidores:
+	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "nombre"
+
+-Mandar solicitud HTTP:
+	curl http://"IP"
+
+-Cambiar para roundrobin:
+	añadir tanto en la sección de "backend servers",
+	como de los dos backend backend la línea:
+		"balance roundrobin"
+
+-Cambiar para leastconn:
+	Misma forma que para roundrobin pero con leastconn
+
+-Agregar un tercer backend mientras se genera trafico:
+	1.- Añadir un nuevo backend en el archivo haproxy.cfg
+	2.- Reiniciar solo el archivo haproxy.cfg con: 
+		docker-compose restart haproxy
+
+-Para la eliminación de un backend mientras se genera tráfico:
+	Se debe eliminar el backend entero del archivo y reiniciarlo con el
+	comando anterior
+
+Una vez que el contenedor de HAProxy se haya reiniciado, el tráfico que se envíe a través del backend detenido recibirá un error. Para asegurarte de que las solicitudes curl no se envíen a través del backend detenido, puedes verificar la salida de registro de HAProxy para ver si se están produciendo errores: 
+	docker-compose logs haproxy
+
+
+
+
+
+
+Instalación HAproxy:
+	1.-sudo apt update
+	2.-sudo apt install haproxy
+	3.-haproxy -v #verificación de instalación
+
+Tras instalarlo, HAproxy tiene un archivo en donde podemos hacer pruebas:
+	sudo nano /etc/haproxy/haproxy.cfg
+
+Si se hacen cambios en ese archivo, se debe de utilizar el siguiente comando para que los cambios tengan efecto en HAproxy:
+	sudo systemctl restart haproxy
+
+Para comprobar el estado de HAproxy:
+	sudo systemctl status haproxy
+
+Para iniciar, detener o ver el estado de HAproxy se debe utilizar el siguiente comando:
+	sudo systemctl "opcion" haproxy
+	Siendo las opciones:
+		1.-start
+		2.-stop
+		3.-restart
+		4.-status
+	

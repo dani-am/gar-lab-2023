@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  haproxy:
+    build: .
+    ports:
+      - "8080:80"
+      - "8081:8081" # agrega este puerto
+    depends_on:
+      - backend1
+      - backend2
+  backend1:
+    image: nginx
+  backend2:
+    image: httpd
