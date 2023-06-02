@@ -1,0 +1,24 @@
+- name: Instalar MySQL Server y cargar base de datos
+  hosts: bbdd
+  become: true
+
+  tasks:
+    - name: Instalar MySQL Server
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Descargar archivo SQL de WordPress
+      get_url:
+        url: "https://drive.google.com/u/0/uc?id=1lZILZvLkZtyd8l-LZzdHQBgkw3ZsaP5q&export=download"
+        dest: /tmp/wordpress.sql
+        validate_certs: no
+
+    - name: Crear base de datos WordPress
+      mysql_db:
+        login_user: root
+        name: wordpress
+        state: present
+
+    - name: Cargar archivo SQL en la base de datos
+      command: mysql -u root -e "USE wordpress; source /tmp/wordpress.sql;"
