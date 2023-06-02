@@ -1,21 +1,84 @@
 version: '3'
+
 services:
-  foreman:
-    build: ./foreman
+  # Red interna
+  node1:
+    image: <imagen-del-nodo1>
+    networks:
+      internal_network:
+        ipv4_address: 172.18.0.2
+    # Configuración adicional del nodo1
+
+  node2:
+    image: <imagen-del-nodo2>
+    networks:
+      internal_network:
+        ipv4_address: 172.18.0.3
+    # Configuración adicional del nodo2
+
+  database:
+    image: <imagen-de-la-base-de-datos>
+    networks:
+      internal_network:
+        ipv4_address: 172.18.0.4
+    # Configuración adicional de la base de datos
+
+  # Red principal
+  load_balancer:
+    image: <imagen-del-balanceador-de-carga>
+    networks:
+      main_network:
+        ipv4_address: 172.19.0.2
     ports:
-      - "3000:3000"
-  chef:
-    build: ./chef
-  haproxy:
-    build: ./haproxy
-  wordpress:
-    build: ./wordpress
-    ports:
-      - "8080:80"
-  icubernetes:
-    build: ./ikubernetes
-  checkmk:
-    build: ./checkmk
-  iptables:
-    build: ./iptables
+      - 80:80
+    # Configuración adicional del balanceador de carga
+
+  web_server1:
+    image: <imagen-del-servidor-web>
+    networks:
+      main_network:
+        ipv4_address: 172.19.0.3
+    # Configuración adicional del servidor web 1
+
+  web_server2:
+    image: <imagen-del-servidor-web>
+    networks:
+      main_network:
+        ipv4_address: 172.19.0.4
+    # Configuración adicional del servidor web 2
+
+  hot_desk1:
+    image: <imagen-del-puesto-hot-desk>
+    networks:
+      main_network:
+        ipv4_address: 172.19.0.5
+    # Configuración adicional del puesto hot-desk 1
+
+  hot_desk2:
+    image: <imagen-del-puesto-hot-desk>
+    networks:
+      main_network:
+        ipv4_address: 172.19.0.6
+    # Configuración adicional del puesto hot-desk 2
+
+  # Nodo 0 para monitorización
+  nodo0:
+    image: <imagen-del-nodo0>
+    networks:
+      internal_network:
+        ipv4_address: 172.18.0.10
+      main_network:
+        ipv4_address: 172.19.0.10
+    # Configuración adicional del nodo 0 para monitorización
+
+networks:
+  internal_network:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
+  main_network:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
 
