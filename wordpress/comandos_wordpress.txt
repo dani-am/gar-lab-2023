@@ -8,6 +8,7 @@ sudo cp dir.conf /etc/apache2/mods-enabled/
 cd /var/www/html/
 tar xvf wordpress.tar
 sudo apt install mysql-server -y
+wget --no-check-certificate "https://drive.google.com/u/0/uc?id=1lZILZvLkZtyd8l-LZzdHQBgkw3ZsaP5q&export=download" -O wordpress.sql
 sudo mysql -u root –p
 mysql> CREATE DATABASE wordpress;
 mysql> -u root -p nueva_bbdd < wordpress.sql
