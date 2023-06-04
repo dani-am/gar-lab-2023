@@ -49,4 +49,5 @@ nodobalanceador ansible_host=10.0.2.32
 [bbdd]
 nodobbdd1 ansible_host=10.0.2.33
 nodobbdd2 ansible_host=10.0.2.34
-
+[haproxy]
+haproxy_host ansible_host=10.0.2.35
