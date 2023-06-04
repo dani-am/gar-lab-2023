@@ -1,0 +1,47 @@
+- name: Instalar Apache2 y PHP
+  hosts: http
+  become: true
+
+  tasks:
+    - name: Instalar Apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Instalar PHP y módulos
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - php
+        - libapache2-mod-php
+        - php-mysql
+        - php-curl
+        - php-gd
+        - php-xml
+        - php-mbstring
+        - php-xmlrpc
+        - php-zip
+        - php-soap
+        - php-intl
+
+
+    - name: Copiar archivo WordPress
+      copy:
+        src: /etc/ansible/docs/wordpress.tar
+        dest: /var/www/html/wordpress.tar
+
+    - name: Eliminar archivo dir.conf
+      file:
+        path: /etc/apache2/mods-enabled/dir.conf
+        state: absent
+
+    - name: Copiar archivo dir.conf
+      copy:
+        src: /etc/ansible/docs/dir.conf
+        dest: /etc/apache2/mods-enabled/dir.conf
+
+    - name: Extraer archivo WordPress
+      command: tar xvf /var/www/html/wordpress.tar
+      args:
+        chdir: /var/www/html/

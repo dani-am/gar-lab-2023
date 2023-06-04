@@ -1,0 +1,40 @@
+- name: Instalar MySQL Server y cargar base de datos
+  hosts: bbdd
+  become: true
+
+  tasks:
+    - name: Instalar MySQL Server
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Instalar pip
+      apt:
+        name: pip
+        state: present
+     
+    - name: Instalar python3
+      pip:
+        name: pymysql 
+        state: present
+
+    - name: Copiar archivo SQL de WordPress
+      copy:
+        src: /etc/ansible/docs/wordpress.sql
+        dest: /tmp/wordpress.sql
+    
+    - name: Crear base de datos WordPress
+      mysql_db:
+        login_user: root
+        login_password: password
+        name: wordpress
+        state: present
+
+    - name: Crear base de datos WordPress
+      mysql_db:
+        login_user: root
+        login_password: password
+        name: wordpress
+        state: import
+        target: /tmp/wordpress.sql
+
