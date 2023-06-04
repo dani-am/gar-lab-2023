@@ -1,0 +1,14 @@
+- name: Instalar agente
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Copiar archivo de instalacion del Agente
+      copy:
+        src: /etc/ansible/docs/check-mk-agent_2.1.0p28-1_all.deb
+        dest: /tmp/check-mk-agent_2.1.0p28-1_all.deb
+
+    - name: Instalar Agente
+      apt:
+        deb: /tmp/check-mk-agent_2.1.0p28-1_all.deb 
+        state: present
