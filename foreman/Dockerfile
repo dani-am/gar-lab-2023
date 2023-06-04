@@ -1,1 +1,0 @@
-FROM theforeman/foreman:latest
